@@ -31,11 +31,18 @@ public class FRONT {
 	
 	private JPanel sidePanel(){
 		
+		int sidePanelWidth = 200;
+		
 		JPanel panel = new JPanel();
 		
 		panel.setLayout(null);
-		panel.setBounds(0, 0, 200, HEIGHT);
-		panel.setBackground(func.setColor(32, 32, 32));
+		panel.setBounds(0, 0, sidePanelWidth, HEIGHT);
+		panel.setBackground(func.setColor(192, 192, 192));
+		
+		panel.add(func.createSidePanelButton(0, 150, sidePanelWidth, "res\\images\\select.png", "Select Music"));
+		panel.add(func.createSidePanelButton(0, 150 + (50 * 1 - 1), sidePanelWidth, "res\\images\\add.png", "Add Music"));
+		panel.add(func.createSidePanelButton(0, 150 + (50 * 2 - 2), sidePanelWidth, "res\\images\\remove.png", "Remove Music"));
+		panel.add(func.createSidePanelButton(0, 150 + (50 * 5 - 5), sidePanelWidth, "res\\images\\exit.png", "Exit"));
 		
 		return panel;
 	}
