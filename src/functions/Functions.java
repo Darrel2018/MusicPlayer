@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -82,25 +84,29 @@ public class Functions {
 	}
 	
 	// adds listeners to buttons
-	public void addButtonListeners(JPanel panel, String buttonName){
+	public void addButtonListeners(JPanel panel, String buttonName, JPanel mPanel){
 		
 		panel.addMouseListener(new MouseAdapter() {
 			
 			public void mousePressed(MouseEvent e){
 				System.out.println("Pressed " + buttonName);
+				panel.setBackground(setColor(160, 160, 160));
 			}
 			
 			public void mouseReleased(MouseEvent e){
-				getButtonFunc(buttonName);
+				getButtonFunc(buttonName, mPanel);
+				panel.setBackground(setColor(132, 132, 132));
 			}
 		});
 	}
 	
 	// checks what button was pressed, then executes its following code.
-	private void getButtonFunc(String button){
+	private void getButtonFunc(String button, JPanel mPanel){
+		
+		mPanel.removeAll();
 		
 		if(button.equals("Select Music")){
-			System.out.println("func1");
+			selectMusic(mPanel);
 		}
 		else if(button.equals("Add Music")){
 			System.out.println("func2");
@@ -109,10 +115,47 @@ public class Functions {
 			System.out.println("func3");
 		}
 		else if(button.equals("Exit")){
-			System.out.println("func4");
+			System.err.println("EXITING...");
+			System.exit(0);
 		}
 		else {
 			System.err.println("ERROR: Cannot find button func...");
 		}
+	}
+	
+	private void selectMusic(JPanel mPanel){
+		
+		ArrayList<JPanel> objlist = new ArrayList<>();
+		File file = new File("res\\music");
+		
+		File[] content = file.listFiles();
+		for(File obj : content){
+			
+			if(obj.isFile()){
+				System.out.println("Reading File: " + obj.getName());
+				objlist.add(createMusicTab(obj.getName(), mPanel, objlist.size()));
+			}
+			
+			if(obj.isDirectory()){
+				System.out.println("Reading Directory: " + obj.getName());
+			}
+		}
+		
+		for(JPanel obj : objlist){
+			mPanel.add(obj);
+		}
+		mPanel.repaint();
+	}
+	
+	private JPanel createMusicTab(String name, JPanel mPanel, int tab){
+		
+		JPanel panel = new JPanel();
+		
+		panel.setBounds(0, 50 * tab, mPanel.getWidth(), 50);
+		panel.setBackground(setColor(132, 132, 132));
+		
+		panel.add(createTextLabel(70, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 12), name, 78));
+		
+		return panel;
 	}
 }

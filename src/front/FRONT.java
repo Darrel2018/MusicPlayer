@@ -1,5 +1,13 @@
 package front;
 
+/**
+ * @author Darrel2018
+ * 
+ * @since 9/11/2019
+ * 
+ * @version 0.5
+ */
+
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -14,6 +22,8 @@ public class FRONT {
 	private JFrame frame;
 	private Functions func;
 	
+	private JPanel mPanel;
+	
 	// Constructor.
 	public FRONT(){
 		
@@ -27,7 +37,12 @@ public class FRONT {
 	private void createView(){
 		
 		frame.setLayout(null);
+		
+		mPanel = new JPanel();
+		mPanel.setBounds(200, 0, WIDTH-200, HEIGHT);
+		
 		frame.add(sidePanel());
+		frame.add(mPanel);
 	}
 	
 	// Creates sidePanel.
@@ -48,10 +63,10 @@ public class FRONT {
 		JPanel remove_music = func.createSidePanelButton(0, 150 + (50 * 2 - 2), sidePanelWidth, "res\\images\\remove.png", "Remove Music");
 		JPanel exit = func.createSidePanelButton(0, 150 + (50 * 5 - 5), sidePanelWidth, "res\\images\\exit.png", "Exit");
 		
-		func.addButtonListeners(select_music, "Select Music");
-		func.addButtonListeners(add_music, "Add Music");
-		func.addButtonListeners(remove_music, "Remove Music");
-		func.addButtonListeners(exit, "Exit");
+		func.addButtonListeners(select_music, "Select Music", mPanel);
+		func.addButtonListeners(add_music, "Add Music", mPanel);
+		func.addButtonListeners(remove_music, "Remove Music", mPanel);
+		func.addButtonListeners(exit, "Exit", mPanel);
 		
 		panel.add(select_music);
 		panel.add(add_music);
