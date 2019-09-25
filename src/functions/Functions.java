@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -145,6 +147,38 @@ public class Functions {
 			mPanel.add(obj);
 		}
 		mPanel.repaint();
+		
+		// FIX THIS
+		if(objlist.size() > 9){
+			mPanel.addMouseWheelListener(new MouseWheelListener() {
+				
+				public void mouseWheelMoved(MouseWheelEvent e) {
+					
+					if(e.getPreciseWheelRotation() < 0){
+						
+						System.out.println("you moved the mouse wheel up");
+						System.out.println(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight());
+						if(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight() <= 490){
+							for(JPanel obj : objlist){
+								obj.setBounds(obj.getX(), obj.getY()+5, obj.getWidth(), obj.getHeight());
+							}
+						}
+						
+						// 450
+					}
+					else{
+						
+						System.out.println("you moved the mouse wheel down");
+						System.out.println(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight());
+						if(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight() >= 480){
+							for(JPanel obj : objlist){
+								obj.setBounds(obj.getX(), obj.getY()-5, obj.getWidth(), obj.getHeight());
+							}
+						}
+					}
+				}
+			});
+		}	
 	}
 	
 	private JPanel createMusicTab(String name, JPanel mPanel, int tab){
