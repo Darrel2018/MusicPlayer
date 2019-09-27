@@ -148,31 +148,26 @@ public class Functions {
 		}
 		mPanel.repaint();
 		
-		// FIX THIS
 		if(objlist.size() > 9){
 			mPanel.addMouseWheelListener(new MouseWheelListener() {
 				
 				public void mouseWheelMoved(MouseWheelEvent e) {
 					
 					if(e.getPreciseWheelRotation() < 0){
+
+						if(objlist.get(0).getY()+10 < 0){
 						
-						System.out.println("you moved the mouse wheel up");
-						System.out.println(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight());
-						if(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight() <= 490){
 							for(JPanel obj : objlist){
-								obj.setBounds(obj.getX(), obj.getY()+5, obj.getWidth(), obj.getHeight());
+								obj.setBounds(obj.getX(), obj.getY()+7, obj.getWidth(), obj.getHeight());
 							}
 						}
-						
-						// 450
 					}
 					else{
 						
-						System.out.println("you moved the mouse wheel down");
-						System.out.println(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight());
-						if(objlist.get(objlist.size()-1).getY() + objlist.get(objlist.size()-1).getHeight() >= 480){
+						if(objlist.get(objlist.size()-1).getY()+70 > mPanel.getHeight()){
+							
 							for(JPanel obj : objlist){
-								obj.setBounds(obj.getX(), obj.getY()-5, obj.getWidth(), obj.getHeight());
+								obj.setBounds(obj.getX(), obj.getY()-7, obj.getWidth(), obj.getHeight());
 							}
 						}
 					}
