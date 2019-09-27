@@ -125,6 +125,7 @@ public class Functions {
 		}
 	}
 	
+	// creates the select music tab.
 	private void selectMusic(JPanel mPanel){
 		
 		ArrayList<JPanel> objlist = new ArrayList<>();
@@ -146,8 +147,10 @@ public class Functions {
 		for(JPanel obj : objlist){
 			mPanel.add(obj);
 		}
+		
 		mPanel.repaint();
 		
+		// Implements scroll wheel if "OBJLIST" is over 9 objects.
 		if(objlist.size() > 9){
 			mPanel.addMouseWheelListener(new MouseWheelListener() {
 				
@@ -155,7 +158,7 @@ public class Functions {
 					
 					if(e.getPreciseWheelRotation() < 0){
 
-						if(objlist.get(0).getY()+10 < 0){
+						if(objlist.get(0).getY()+5 < 0){
 						
 							for(JPanel obj : objlist){
 								obj.setBounds(obj.getX(), obj.getY()+7, obj.getWidth(), obj.getHeight());
@@ -176,12 +179,20 @@ public class Functions {
 		}	
 	}
 	
+	// WORK HERE///////////////////////////////////////////////////////////
 	private JPanel createMusicTab(String name, JPanel mPanel, int tab){
 		
 		JPanel panel = new JPanel();
+		JSeparator sep = new JSeparator();
 		
 		panel.setBounds(0, 50 * tab, mPanel.getWidth(), 50);
 		panel.setBackground(setColor(132, 132, 132));
+		
+		sep.setBackground(setColor(255, 255, 255));
+		sep.setForeground(setColor(255, 255, 255));
+		sep.setBounds(0, 0, mPanel.getWidth(), 1);
+		
+		panel.add(sep);
 		
 		panel.add(createTextLabel(70, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 12), name, 78));
 		
