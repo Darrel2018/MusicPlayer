@@ -34,9 +34,9 @@ public class Functions {
 		panel.setBackground(setColor(132, 132, 132));
 		panel.setBorder(BorderFactory.createLineBorder(setColor(255, 255, 255)));
 		
-		panel.add(createSideButtonIcon(0, 0, iconPathLeft));
+		panel.add(createIcon(0, 0, iconPathLeft));
 		panel.add(createTextLabel(70, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 12), text, 78));
-		panel.add(createSideButtonIcon(170, 0, "res\\images\\next.png"));
+		panel.add(createIcon(170, 0, "res\\images\\next.png"));
 		
 		return panel;
 	}
@@ -55,7 +55,7 @@ public class Functions {
 	}
 	
 	// Creates side-Button-Icons.
-	private JLabel createSideButtonIcon(int x, int y, String path){
+	private JLabel createIcon(int x, int y, String path){
 		
 		JLabel iconLabel = new JLabel();
 		
@@ -179,22 +179,56 @@ public class Functions {
 		}	
 	}
 	
-	// WORK HERE///////////////////////////////////////////////////////////
+	// creates each music tab when a music file is found.
 	private JPanel createMusicTab(String name, JPanel mPanel, int tab){
 		
 		JPanel panel = new JPanel();
 		JSeparator sep = new JSeparator();
+		JSeparator dec_Line = new JSeparator();
 		
 		panel.setBounds(0, 50 * tab, mPanel.getWidth(), 50);
 		panel.setBackground(setColor(132, 132, 132));
 		
 		sep.setBackground(setColor(255, 255, 255));
 		sep.setForeground(setColor(255, 255, 255));
-		sep.setBounds(0, 0, mPanel.getWidth(), 1);
+		sep.setBounds(0, 49, mPanel.getWidth(), 1);
+		
+		dec_Line.setBackground(setColor(255, 255, 255));
+		dec_Line.setForeground(setColor(255, 255, 255));
+		dec_Line.setBounds(120, 27, 300, 1);
 		
 		panel.add(sep);
+		panel.add(createIcon(20, 0, "res\\images\\next.png"));
+		panel.add(createPlayButton(420, 0, "res\\images\\play.png", name));
 		
 		panel.add(createTextLabel(70, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 12), name, 78));
+		panel.add(dec_Line);
+		
+		return panel;
+	}
+	
+	// WORK HERE: create way to play music
+	private JPanel createPlayButton(int x, int y, String imgPath, String songName){
+		
+		JPanel panel = new JPanel();
+		
+		panel.setLayout(null);
+		panel.setBounds(x, y, 50, 48);
+		
+		panel.setBackground(setColor(132, 132, 132));
+		
+		panel.add(createIcon(0, 0, imgPath));
+		
+		panel.addMouseListener(new MouseAdapter() {
+			
+			public void mousePressed(MouseEvent e){
+				panel.setBackground(setColor(160, 160, 160));
+			}
+			
+			public void mouseReleased(MouseEvent e){
+				panel.setBackground(setColor(132, 132, 132));
+			}
+		});
 		
 		return panel;
 	}
