@@ -17,6 +17,8 @@ import javax.swing.JSeparator;
 
 public class Functions {
 	
+	private Audio music;
+	
 	// Returns a Color object.
 	public Color setColor(int r, int g, int b){
 		Color color = new Color(r, g, b);
@@ -195,11 +197,11 @@ public class Functions {
 		
 		dec_Line.setBackground(setColor(255, 255, 255));
 		dec_Line.setForeground(setColor(255, 255, 255));
-		dec_Line.setBounds(120, 27, 300, 1);
+		dec_Line.setBounds(200, 27, 300, 1);
 		
 		panel.add(sep);
 		panel.add(createIcon(20, 0, "res\\images\\next.png"));
-		panel.add(createPlayButton(420, 0, "res\\images\\play.png", name));
+		panel.add(createPlayButton(450, 0, "res\\images\\play.png", name));
 		
 		panel.add(createTextLabel(70, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 12), name, 78));
 		panel.add(dec_Line);
@@ -227,6 +229,13 @@ public class Functions {
 			
 			public void mouseReleased(MouseEvent e){
 				panel.setBackground(setColor(132, 132, 132));
+				if(music == null){
+					music = new Audio("res\\music\\" + songName);
+				}
+				else {
+					music.stopAudio();
+					music = new Audio("res\\music\\" + songName);
+				}
 			}
 		});
 		

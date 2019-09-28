@@ -84,6 +84,7 @@ public class FRONT {
 		front.frame.setResizable(false);
 		front.frame.setLocationRelativeTo(null);
 		front.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		front.frame.setTitle("Music Player");
 		
 		front.frame.setVisible(true);
 	}
