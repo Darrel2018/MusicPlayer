@@ -55,11 +55,11 @@ public class Audio implements Runnable {
 			e.printStackTrace();
 		}
 		
-		try {
+		/*try {
 			thread.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	public void stopAudio(){

@@ -209,7 +209,7 @@ public class Functions {
 		return panel;
 	}
 	
-	// WORK HERE: create way to play music
+	// creates way to play music.
 	private JPanel createPlayButton(int x, int y, String imgPath, String songName){
 		
 		JPanel panel = new JPanel();
@@ -229,6 +229,7 @@ public class Functions {
 			
 			public void mouseReleased(MouseEvent e){
 				panel.setBackground(setColor(132, 132, 132));
+				
 				if(music == null){
 					music = new Audio("res\\music\\" + songName);
 				}
