@@ -1,11 +1,13 @@
 package front;
 
 /**
+ * @info This is my attempt at making a music player.
+ * 
  * @author Darrel2018
  * 
  * @since 9/11/2019
  * 
- * @version 0.5
+ * @version 0.6
  */
 
 import java.awt.Dimension;
@@ -40,6 +42,7 @@ public class FRONT {
 		
 		mPanel = new JPanel();
 		mPanel.setBounds(200, 0, WIDTH-200, HEIGHT);
+		mPanel.setBackground(func.setColor(132, 132, 132));
 		
 		frame.add(sidePanel());
 		frame.add(mPanel);

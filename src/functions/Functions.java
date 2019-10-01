@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -108,12 +109,13 @@ public class Functions {
 	private void getButtonFunc(String button, JPanel mPanel){
 		
 		mPanel.removeAll();
+		mPanel.repaint();
 		
 		if(button.equals("Select Music")){
 			selectMusic(mPanel);
 		}
 		else if(button.equals("Add Music")){
-			System.out.println("func2");
+			addMusic(mPanel);
 		}
 		else if(button.equals("Remove Music")){
 			System.out.println("func3");
@@ -241,5 +243,20 @@ public class Functions {
 		});
 		
 		return panel;
+	}
+	
+	// uses windows explorer to find the music file.
+	private void addMusic(JPanel mPanel){
+		File file = new File("res\\music");
+		String path = file.getAbsolutePath();
+		
+		try {
+			System.out.println("Looking for path: " + path);
+			Runtime.getRuntime().exec("explorer.exe " + path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		mPanel.add(createTextLabel(17, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 30), "Add music to music file.", 400));
 	}
 }

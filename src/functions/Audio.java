@@ -22,6 +22,7 @@ public class Audio implements Runnable {
 	
 	public Audio(String songName){
 		this.songName = songName;
+		
 		thread = new Thread(this, "Audio");
 		thread.start();
 	}
@@ -54,12 +55,6 @@ public class Audio implements Runnable {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.printStackTrace();
 		}
-		
-		/*try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 	}
 	
 	public void stopAudio(){
