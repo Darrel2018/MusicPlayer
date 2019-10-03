@@ -7,7 +7,7 @@ package front;
  * 
  * @since 9/11/2019
  * 
- * @version 0.6
+ * @version 1.0
  */
 
 import java.awt.Dimension;

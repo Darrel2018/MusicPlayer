@@ -118,7 +118,7 @@ public class Functions {
 			addMusic(mPanel);
 		}
 		else if(button.equals("Remove Music")){
-			System.out.println("func3");
+			removeMusic(mPanel);
 		}
 		else if(button.equals("Exit")){
 			System.err.println("EXITING...");
@@ -140,7 +140,7 @@ public class Functions {
 			
 			if(obj.isFile()){
 				System.out.println("Reading File: " + obj.getName());
-				objlist.add(createMusicTab(obj.getName(), mPanel, objlist.size()));
+				objlist.add(createMusicTab(obj.getName(), mPanel, objlist.size(), true));
 			}
 			
 			if(obj.isDirectory()){
@@ -184,7 +184,7 @@ public class Functions {
 	}
 	
 	// creates each music tab when a music file is found.
-	private JPanel createMusicTab(String name, JPanel mPanel, int tab){
+	private JPanel createMusicTab(String name, JPanel mPanel, int tab, boolean remove){
 		
 		JPanel panel = new JPanel();
 		JSeparator sep = new JSeparator();
@@ -203,7 +203,13 @@ public class Functions {
 		
 		panel.add(sep);
 		panel.add(createIcon(20, 0, "res\\images\\next.png"));
-		panel.add(createPlayButton(450, 0, "res\\images\\play.png", name));
+		
+		if(remove == false){
+			panel.add(createRemoveButton(450, 0, "res\\images\\delete.png", name, mPanel));
+		}
+		else {
+			panel.add(createPlayButton(450, 0, "res\\images\\play.png", name));
+		}
 		
 		panel.add(createTextLabel(70, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 12), name, 78));
 		panel.add(dec_Line);
@@ -258,5 +264,103 @@ public class Functions {
 		}
 		
 		mPanel.add(createTextLabel(17, 0, setColor(255, 255, 255), new Font("Segoe UI", 0, 30), "Add music to music file.", 400));
+	}
+	
+	// creates the removeMusic tab
+	private void removeMusic(JPanel mPanel){
+		
+		ArrayList<JPanel> objlist = new ArrayList<>();
+		File file = new File("res\\music");
+		
+		File[] content = file.listFiles();
+		for(File obj : content){
+			
+			if(obj.isFile()){
+				System.out.println("Reading File: " + obj.getName());
+				objlist.add(createMusicTab(obj.getName(), mPanel, objlist.size(), false));
+			}
+			
+			if(obj.isDirectory()){
+				System.out.println("Reading Directory: " + obj.getName());
+			}
+		}
+		
+		for(JPanel obj : objlist){
+			mPanel.add(obj);
+		}
+		
+		mPanel.repaint();
+		
+		// Implements scroll wheel if "OBJLIST" is over 9 objects.
+		if(objlist.size() > 9){
+			mPanel.addMouseWheelListener(new MouseWheelListener() {
+				
+				public void mouseWheelMoved(MouseWheelEvent e) {
+							
+					if(e.getPreciseWheelRotation() < 0){
+						
+						if(objlist.get(0).getY()+5 < 0){
+							
+							for(JPanel obj : objlist){
+								obj.setBounds(obj.getX(), obj.getY()+7, obj.getWidth(), obj.getHeight());
+							}
+						}
+					}
+					else{
+						
+						if(objlist.get(objlist.size()-1).getY()+70 > mPanel.getHeight()){
+							
+							for(JPanel obj : objlist){
+								obj.setBounds(obj.getX(), obj.getY()-7, obj.getWidth(), obj.getHeight());
+							}
+						}
+					}
+				}
+			});
+		}
+	}
+	
+	// creates a remove button for the music tabs
+	private JPanel createRemoveButton(int x, int y, String imgPath, String songName, JPanel mPanel){
+		
+		JPanel panel = new JPanel();
+		
+		panel.setLayout(null);
+		panel.setBounds(x, y, 50, 48);
+		
+		panel.setBackground(setColor(132, 132, 132));
+		
+		panel.add(createIcon(0, 0, imgPath));
+		
+		panel.addMouseListener(new MouseAdapter() {
+			
+			public void mousePressed(MouseEvent e){
+				panel.setBackground(setColor(160, 160, 160));
+			}
+			
+			public void mouseReleased(MouseEvent e){
+				panel.setBackground(setColor(132, 132, 132));
+				
+				try {
+					System.out.println("removing: " + songName);
+					deleteFile(songName);
+					
+					mPanel.removeAll();
+					removeMusic(mPanel);
+					
+					mPanel.repaint();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		
+		return panel;
+	}
+	
+	// deletes music files
+	private void deleteFile(String pathName) throws IOException{
+		File file = new File("res\\music\\" + pathName);
+		file.delete();
 	}
 }

@@ -55,6 +55,8 @@ public class Audio implements Runnable {
 		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("Stopping: " + songName);
 	}
 	
 	public void stopAudio(){
